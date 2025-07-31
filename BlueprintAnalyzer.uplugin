@@ -1,0 +1,27 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0.0",
+	"FriendlyName": "Blueprint Analyzer",
+	"Description": "Analyze and export Blueprint structures to LLM-friendly formats (JSON/Text). Reduces blueprint data by 80-90% by removing visual layout information while preserving logic flow. Perfect for AI-assisted blueprint analysis. Free for all users.",
+	"Category": "Developer Tools",
+	"CreatedBy": "keemminxu",
+	"CreatedByURL": "https://github.com/keemminxu",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "BlueprintAnalyzer",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		}
+	],
+	"TargetAllowList": [
+		"Editor"
+	]
+}
