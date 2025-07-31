@@ -230,7 +230,7 @@ The plugin uses a comprehensive 100-point scoring system for Widget Blueprint op
 - **Optimization Box Active Usage (+20 points)**: Proper use of both Invalidation and Retainer boxes
 
 #### Score Grades
-- **90-100**: Excellent - Very Well Optimized
+- **90-100**: Excellent! - Very Well Optimized
 - **70-89**: Good - Well Optimized  
 - **50-69**: Average - Some Improvements Needed
 - **30-49**: Poor - Significant Optimization Required
