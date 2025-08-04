@@ -311,41 +311,41 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportWidgetToLLMText()
     }
 }
 
-void FBlueprintAnalyzerMenuExtension::ExecuteGenerateOptimizedCode()
-{
-    UBlueprint* SelectedBlueprint = GetSelectedBlueprint();
-    if (!SelectedBlueprint)
-    {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NoBlueprintSelected", "No blueprint selected."));
-        return;
-    }
-
-    if (!IsWidgetBlueprint(SelectedBlueprint))
-    {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NotWidgetBlueprint", "Selected blueprint is not a Widget Blueprint."));
-        return;
-    }
-
-    FString DefaultFilename = FString::Printf(TEXT("Optimized%s.h"), *SelectedBlueprint->GetName());
-    FString SavePath = ShowSaveFileDialog(DefaultFilename, TEXT("Header Files (*.h)|*.h"));
-    
-    if (!SavePath.IsEmpty())
-    {
-        FWidgetOptimizationReport Report = UBlueprintAnalyzerLibrary::AnalyzeWidgetBlueprint(SelectedBlueprint);
-        FString OptimizedCode = UBlueprintAnalyzerLibrary::GenerateOptimizedWidgetCode(Report);
-        
-        bool bSuccess = FFileHelper::SaveStringToFile(OptimizedCode, *SavePath);
-        
-        if (bSuccess)
-        {
-            FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(FString::Printf(TEXT("Optimized C++ code generated at: %s"), *SavePath)));
-        }
-        else
-        {
-            FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("ExportFailed", "Failed to generate optimized code."));
-        }
-    }
-}
+//void FBlueprintAnalyzerMenuExtension::ExecuteGenerateOptimizedCode()
+//{
+//    UBlueprint* SelectedBlueprint = GetSelectedBlueprint();
+//    if (!SelectedBlueprint)
+//    {
+//        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NoBlueprintSelected", "No blueprint selected."));
+//        return;
+//    }
+//
+//    if (!IsWidgetBlueprint(SelectedBlueprint))
+//    {
+//        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NotWidgetBlueprint", "Selected blueprint is not a Widget Blueprint."));
+//        return;
+//    }
+//
+//    FString DefaultFilename = FString::Printf(TEXT("Optimized%s.h"), *SelectedBlueprint->GetName());
+//    FString SavePath = ShowSaveFileDialog(DefaultFilename, TEXT("Header Files (*.h)|*.h"));
+//    
+//    if (!SavePath.IsEmpty())
+//    {
+//        FWidgetOptimizationReport Report = UBlueprintAnalyzerLibrary::AnalyzeWidgetBlueprint(SelectedBlueprint);
+//        FString OptimizedCode = UBlueprintAnalyzerLibrary::GenerateOptimizedWidgetCode(Report);
+//        
+//        bool bSuccess = FFileHelper::SaveStringToFile(OptimizedCode, *SavePath);
+//        
+//        if (bSuccess)
+//        {
+//            FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(FString::Printf(TEXT("Optimized C++ code generated at: %s"), *SavePath)));
+//        }
+//        else
+//        {
+//            FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("ExportFailed", "Failed to generate optimized code."));
+//        }
+//    }
+//}
 
 UBlueprint* FBlueprintAnalyzerMenuExtension::GetSelectedBlueprint()
 {
