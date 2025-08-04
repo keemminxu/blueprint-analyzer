@@ -23,7 +23,7 @@ private:
     static void ExecuteAnalyzeWidgetBlueprint();
     static void ExecuteExportWidgetToJSON();
     static void ExecuteExportWidgetToLLMText();
-    static void ExecuteGenerateOptimizedCode();
+    //static void ExecuteGenerateOptimizedCode();
     
     static class UBlueprint* GetSelectedBlueprint();
     static bool IsWidgetBlueprint(UBlueprint* Blueprint);

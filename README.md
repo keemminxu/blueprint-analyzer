@@ -75,11 +75,6 @@ A comprehensive Unreal Engine 5 editor plugin that converts .uasset Blueprint fi
    - Performance recommendations
    - Memory usage estimates
 
-#### Generate Optimized C++ Code
-1. Select a Widget Blueprint → Right-click → **Blueprint Analyzer**
-2. Choose **Generate Optimized C++ Code**
-3. Get a C++ header file template with optimization recommendations
-
 ## 📄 Output Examples
 
 ### Blueprint Analysis JSON Format

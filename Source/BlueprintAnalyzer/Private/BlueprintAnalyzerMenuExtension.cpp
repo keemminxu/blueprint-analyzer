@@ -98,13 +98,13 @@ void FBlueprintAnalyzerMenuExtension::RegisterMenuExtensions()
                     FUIAction(FExecuteAction::CreateStatic(&FBlueprintAnalyzerMenuExtension::ExecuteExportWidgetToLLMText))
                 );
                 
-                WidgetSection.AddMenuEntry(
-                    "GenerateOptimizedCode",
-                    LOCTEXT("GenerateOptimizedCode", "Generate Optimized C++ Code"),
-                    LOCTEXT("GenerateOptimizedCodeTooltip", "Generate optimized C++ code based on widget analysis"),
-                    FSlateIcon(),
-                    FUIAction(FExecuteAction::CreateStatic(&FBlueprintAnalyzerMenuExtension::ExecuteGenerateOptimizedCode))
-                );
+                //WidgetSection.AddMenuEntry(
+                //    "GenerateOptimizedCode",
+                //    LOCTEXT("GenerateOptimizedCode", "Generate Optimized C++ Code"),
+                //    LOCTEXT("GenerateOptimizedCodeTooltip", "Generate optimized C++ code based on widget analysis"),
+                //    FSlateIcon(),
+                //    FUIAction(FExecuteAction::CreateStatic(&FBlueprintAnalyzerMenuExtension::ExecuteGenerateOptimizedCode))
+                //);
             })
         );
     }
