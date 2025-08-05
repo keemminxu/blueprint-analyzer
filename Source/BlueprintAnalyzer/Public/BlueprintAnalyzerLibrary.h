@@ -15,22 +15,22 @@ struct BLUEPRINTANALYZER_API FBlueprintNodeInfo
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString NodeType;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString NodeName;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString FunctionName;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     TArray<FString> InputPins;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     TArray<FString> OutputPins;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString NodeGuid;
 
     FBlueprintNodeInfo()
@@ -46,16 +46,16 @@ struct BLUEPRINTANALYZER_API FBlueprintConnectionInfo
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString FromNodeGuid;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString FromPinName;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString ToNodeGuid;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString ToPinName;
 
     FBlueprintConnectionInfo()
@@ -72,16 +72,16 @@ struct BLUEPRINTANALYZER_API FBlueprintAnalysisResult
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString BlueprintName;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     TArray<FBlueprintNodeInfo> Nodes;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     TArray<FBlueprintConnectionInfo> Connections;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString AnalysisTimestamp;
 
     FBlueprintAnalysisResult()
@@ -105,19 +105,19 @@ struct BLUEPRINTANALYZER_API FWidgetOptimizationIssue
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString IssueType;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString Description;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString Recommendation;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     EWidgetOptimizationSeverity Severity;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString WidgetPath;
 
     FWidgetOptimizationIssue()
@@ -135,22 +135,22 @@ struct BLUEPRINTANALYZER_API FWidgetHierarchyInfo
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString WidgetName;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString WidgetType;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     int32 Depth;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     int32 ChildrenCount;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     bool bHasBindings;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     TArray<FString> BoundProperties;
 
     FWidgetHierarchyInfo()
@@ -168,31 +168,31 @@ struct BLUEPRINTANALYZER_API FWidgetOptimizationReport
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString WidgetBlueprintName;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     FString AnalysisTimestamp;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     int32 TotalWidgets;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     int32 MaxDepth;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     int32 TotalBindings;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     TArray<FWidgetHierarchyInfo> WidgetHierarchy;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     TArray<FWidgetOptimizationIssue> OptimizationIssues;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     float EstimatedMemoryUsage;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
     int32 OptimizationScore;
 
     FWidgetOptimizationReport()

@@ -2,8 +2,6 @@
 
 #include "BlueprintAnalyzerMenuExtension.h"
 #include "BlueprintAnalyzerLibrary.h"
-
-#define LOCTEXT_NAMESPACE "FBlueprintAnalyzerModule"
 #include "Engine/Blueprint.h"
 #include "Blueprint/UserWidget.h"
 #include "AssetRegistry/AssetRegistryModule.h"
@@ -40,71 +38,63 @@ void FBlueprintAnalyzerMenuExtension::RegisterMenuExtensions()
         FToolMenuSection& Section = ContentBrowserAssetMenu->FindOrAddSection("GetAssetActions");
         Section.AddSubMenu(
             "BlueprintAnalyzer",
-            LOCTEXT("BlueprintAnalyzerSubMenu", "Blueprint Analyzer"),
-            LOCTEXT("BlueprintAnalyzerSubMenuTooltip", "Blueprint analysis and optimization tools"),
+            FText::FromString("Blueprint Analyzer"),
+            FText::FromString("Blueprint analysis and optimization tools"),
             FNewToolMenuDelegate::CreateLambda([](UToolMenu* SubMenu)
             {
-                FToolMenuSection& SubSection = SubMenu->AddSection("BlueprintAnalyzerActions", LOCTEXT("BlueprintAnalyzerActions", "Analysis Actions"));
+                FToolMenuSection& SubSection = SubMenu->AddSection("BlueprintAnalyzerActions", FText::FromString("Analysis Actions"));
                 
                 // Regular Blueprint Analysis
                 SubSection.AddMenuEntry(
                     "AnalyzeBlueprint",
-                    LOCTEXT("AnalyzeBlueprint", "Analyze Blueprint"),
-                    LOCTEXT("AnalyzeBlueprintTooltip", "Analyze the selected blueprint structure"),
+                    FText::FromString("Analyze Blueprint"),
+                    FText::FromString("Analyze the selected blueprint structure"),
                     FSlateIcon(),
                     FUIAction(FExecuteAction::CreateStatic(&FBlueprintAnalyzerMenuExtension::ExecuteAnalyzeBlueprint))
                 );
                 
                 SubSection.AddMenuEntry(
                     "ExportToJSON",
-                    LOCTEXT("ExportToJSON", "Export to JSON"),
-                    LOCTEXT("ExportToJSONTooltip", "Export blueprint analysis to JSON format"),
+                    FText::FromString("Export to JSON"),
+                    FText::FromString("Export blueprint analysis to JSON format"),
                     FSlateIcon(),
                     FUIAction(FExecuteAction::CreateStatic(&FBlueprintAnalyzerMenuExtension::ExecuteExportToJSON))
                 );
                 
                 SubSection.AddMenuEntry(
                     "ExportToLLMText",
-                    LOCTEXT("ExportToLLMText", "Export to LLM Text"),
-                    LOCTEXT("ExportToLLMTextTooltip", "Export blueprint analysis to LLM-friendly text format"),
+                    FText::FromString("Export to LLM Text"),
+                    FText::FromString("Export blueprint analysis to LLM-friendly text format"),
                     FSlateIcon(),
                     FUIAction(FExecuteAction::CreateStatic(&FBlueprintAnalyzerMenuExtension::ExecuteExportToLLMText))
                 );
 
                 // Widget Blueprint Optimization
-                FToolMenuSection& WidgetSection = SubMenu->AddSection("WidgetAnalyzerActions", LOCTEXT("WidgetAnalyzerActions", "Widget Optimization"));
+                FToolMenuSection& WidgetSection = SubMenu->AddSection("WidgetAnalyzerActions", FText::FromString("Widget Optimization"));
                 
                 WidgetSection.AddMenuEntry(
                     "AnalyzeWidgetBlueprint",
-                    LOCTEXT("AnalyzeWidgetBlueprint", "Analyze Widget Blueprint"),
-                    LOCTEXT("AnalyzeWidgetBlueprintTooltip", "Analyze widget blueprint for optimization opportunities"),
+                    FText::FromString("Analyze Widget Blueprint"),
+                    FText::FromString("Analyze widget blueprint for optimization opportunities"),
                     FSlateIcon(),
                     FUIAction(FExecuteAction::CreateStatic(&FBlueprintAnalyzerMenuExtension::ExecuteAnalyzeWidgetBlueprint))
                 );
                 
                 WidgetSection.AddMenuEntry(
                     "ExportWidgetToJSON",
-                    LOCTEXT("ExportWidgetToJSON", "Export Widget Analysis to JSON"),
-                    LOCTEXT("ExportWidgetToJSONTooltip", "Export widget optimization report to JSON format"),
+                    FText::FromString("Export Widget Analysis to JSON"),
+                    FText::FromString("Export widget optimization report to JSON format"),
                     FSlateIcon(),
                     FUIAction(FExecuteAction::CreateStatic(&FBlueprintAnalyzerMenuExtension::ExecuteExportWidgetToJSON))
                 );
                 
                 WidgetSection.AddMenuEntry(
                     "ExportWidgetToLLMText",
-                    LOCTEXT("ExportWidgetToLLMText", "Export Widget Analysis to LLM Text"),
-                    LOCTEXT("ExportWidgetToLLMTextTooltip", "Export widget optimization report to LLM-friendly text format"),
+                    FText::FromString("Export Widget Analysis to LLM Text"),
+                    FText::FromString("Export widget optimization report to LLM-friendly text format"),
                     FSlateIcon(),
                     FUIAction(FExecuteAction::CreateStatic(&FBlueprintAnalyzerMenuExtension::ExecuteExportWidgetToLLMText))
                 );
-                
-                //WidgetSection.AddMenuEntry(
-                //    "GenerateOptimizedCode",
-                //    LOCTEXT("GenerateOptimizedCode", "Generate Optimized C++ Code"),
-                //    LOCTEXT("GenerateOptimizedCodeTooltip", "Generate optimized C++ code based on widget analysis"),
-                //    FSlateIcon(),
-                //    FUIAction(FExecuteAction::CreateStatic(&FBlueprintAnalyzerMenuExtension::ExecuteGenerateOptimizedCode))
-                //);
             })
         );
     }
@@ -115,7 +105,7 @@ void FBlueprintAnalyzerMenuExtension::ExecuteAnalyzeBlueprint()
     UBlueprint* SelectedBlueprint = GetSelectedBlueprint();
     if (!SelectedBlueprint)
     {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NoBlueprintSelected", "No blueprint selected."));
+        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("No blueprint selected."), FText::FromString("Blueprint Analyzer"));
         return;
     }
 
@@ -134,7 +124,7 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportToJSON()
     UBlueprint* SelectedBlueprint = GetSelectedBlueprint();
     if (!SelectedBlueprint)
     {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NoBlueprintSelected", "No blueprint selected."));
+        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("No blueprint selected."), FText::FromString("Blueprint Analyzer"));
         return;
     }
 
@@ -152,7 +142,7 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportToJSON()
         }
         else
         {
-            FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("ExportFailed", "Failed to export analysis."));
+            FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("Failed to export analysis."), FText::FromString("Blueprint Analyzer"));
         }
     }
 }
@@ -162,7 +152,7 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportToLLMText()
     UBlueprint* SelectedBlueprint = GetSelectedBlueprint();
     if (!SelectedBlueprint)
     {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NoBlueprintSelected", "No blueprint selected."));
+        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("No blueprint selected."), FText::FromString("Blueprint Analyzer"));
         return;
     }
 
@@ -180,7 +170,7 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportToLLMText()
         }
         else
         {
-            FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("ExportFailed", "Failed to export analysis."));
+            FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("Failed to export analysis."), FText::FromString("Blueprint Analyzer"));
         }
     }
 }
@@ -190,13 +180,13 @@ void FBlueprintAnalyzerMenuExtension::ExecuteAnalyzeWidgetBlueprint()
     UBlueprint* SelectedBlueprint = GetSelectedBlueprint();
     if (!SelectedBlueprint)
     {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NoBlueprintSelected", "No blueprint selected."));
+        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("No blueprint selected."), FText::FromString("Blueprint Analyzer"));
         return;
     }
 
     if (!IsWidgetBlueprint(SelectedBlueprint))
     {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NotWidgetBlueprint", "Selected blueprint is not a Widget Blueprint."));
+        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("Selected blueprint is not a Widget Blueprint."), FText::FromString("Blueprint Analyzer"));
         return;
     }
 
@@ -248,13 +238,13 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportWidgetToJSON()
     UBlueprint* SelectedBlueprint = GetSelectedBlueprint();
     if (!SelectedBlueprint)
     {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NoBlueprintSelected", "No blueprint selected."));
+        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("No blueprint selected."), FText::FromString("Blueprint Analyzer"));
         return;
     }
 
     if (!IsWidgetBlueprint(SelectedBlueprint))
     {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NotWidgetBlueprint", "Selected blueprint is not a Widget Blueprint."));
+        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("Selected blueprint is not a Widget Blueprint."), FText::FromString("Blueprint Analyzer"));
         return;
     }
 
@@ -272,7 +262,7 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportWidgetToJSON()
         }
         else
         {
-            FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("ExportFailed", "Failed to export widget analysis."));
+            FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("Failed to export widget analysis."), FText::FromString("Blueprint Analyzer"));
         }
     }
 }
@@ -282,13 +272,13 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportWidgetToLLMText()
     UBlueprint* SelectedBlueprint = GetSelectedBlueprint();
     if (!SelectedBlueprint)
     {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NoBlueprintSelected", "No blueprint selected."));
+        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("No blueprint selected."), FText::FromString("Blueprint Analyzer"));
         return;
     }
 
     if (!IsWidgetBlueprint(SelectedBlueprint))
     {
-        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NotWidgetBlueprint", "Selected blueprint is not a Widget Blueprint."));
+        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("Selected blueprint is not a Widget Blueprint."), FText::FromString("Blueprint Analyzer"));
         return;
     }
 
@@ -306,7 +296,7 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportWidgetToLLMText()
         }
         else
         {
-            FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("ExportFailed", "Failed to export widget analysis."));
+            FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("Failed to export widget analysis."), FText::FromString("Blueprint Analyzer"));
         }
     }
 }
@@ -316,13 +306,13 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportWidgetToLLMText()
 //    UBlueprint* SelectedBlueprint = GetSelectedBlueprint();
 //    if (!SelectedBlueprint)
 //    {
-//        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NoBlueprintSelected", "No blueprint selected."));
+//        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("No blueprint selected."), FText::FromString("Blueprint Analyzer"));
 //        return;
 //    }
 //
 //    if (!IsWidgetBlueprint(SelectedBlueprint))
 //    {
-//        FMessageDialog::Open(EAppMsgType::Ok, LOCTEXT("NotWidgetBlueprint", "Selected blueprint is not a Widget Blueprint."));
+//        FMessageDialog::Open(EAppMsgType::Ok, FText::FromString("Selected blueprint is not a Widget Blueprint."), FText::FromString("Blueprint Analyzer"));
 //        return;
 //    }
 //
@@ -416,5 +406,3 @@ FString FBlueprintAnalyzerMenuExtension::ShowSaveFileDialog(const FString& Defau
     
     return FString();
 }
-
-#undef LOCTEXT_NAMESPACE
