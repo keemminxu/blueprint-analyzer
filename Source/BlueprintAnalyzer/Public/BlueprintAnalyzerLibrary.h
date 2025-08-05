@@ -15,22 +15,22 @@ struct BLUEPRINTANALYZER_API FBlueprintNodeInfo
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString NodeType;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString NodeName;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString FunctionName;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     TArray<FString> InputPins;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     TArray<FString> OutputPins;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString NodeGuid;
 
     FBlueprintNodeInfo()
@@ -46,16 +46,16 @@ struct BLUEPRINTANALYZER_API FBlueprintConnectionInfo
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString FromNodeGuid;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString FromPinName;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString ToNodeGuid;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString ToPinName;
 
     FBlueprintConnectionInfo()
@@ -72,16 +72,16 @@ struct BLUEPRINTANALYZER_API FBlueprintAnalysisResult
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString BlueprintName;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     TArray<FBlueprintNodeInfo> Nodes;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     TArray<FBlueprintConnectionInfo> Connections;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString AnalysisTimestamp;
 
     FBlueprintAnalysisResult()
@@ -105,19 +105,19 @@ struct BLUEPRINTANALYZER_API FWidgetOptimizationIssue
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString IssueType;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString Description;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString Recommendation;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     EWidgetOptimizationSeverity Severity;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString WidgetPath;
 
     FWidgetOptimizationIssue()
@@ -135,22 +135,22 @@ struct BLUEPRINTANALYZER_API FWidgetHierarchyInfo
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString WidgetName;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString WidgetType;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     int32 Depth;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     int32 ChildrenCount;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     bool bHasBindings;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     TArray<FString> BoundProperties;
 
     FWidgetHierarchyInfo()
@@ -168,31 +168,31 @@ struct BLUEPRINTANALYZER_API FWidgetOptimizationReport
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString WidgetBlueprintName;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     FString AnalysisTimestamp;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     int32 TotalWidgets;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     int32 MaxDepth;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     int32 TotalBindings;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     TArray<FWidgetHierarchyInfo> WidgetHierarchy;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     TArray<FWidgetOptimizationIssue> OptimizationIssues;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     float EstimatedMemoryUsage;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Blueprint Analysis|Node")
+    UPROPERTY(BlueprintReadOnly, Category = "BlueprintAnalyzer")
     int32 OptimizationScore;
 
     FWidgetOptimizationReport()
@@ -214,32 +214,32 @@ class BLUEPRINTANALYZER_API UBlueprintAnalyzerLibrary : public UBlueprintFunctio
 
 public:
     // Original Blueprint Analysis Functions
-    UFUNCTION(BlueprintCallable, Category = "Blueprint Analyzer", meta=(CallInEditor="true"))
+    UFUNCTION(BlueprintCallable, Category = "BlueprintAnalyzer", meta=(CallInEditor="true"))
     static FBlueprintAnalysisResult AnalyzeBlueprint(UBlueprint* Blueprint);
 
-    UFUNCTION(BlueprintCallable, Category = "Blueprint Analyzer", meta=(CallInEditor="true"))
+    UFUNCTION(BlueprintCallable, Category = "BlueprintAnalyzer", meta=(CallInEditor="true"))
     static FString ExportToJSON(const FBlueprintAnalysisResult& AnalysisResult);
 
-    UFUNCTION(BlueprintCallable, Category = "Blueprint Analyzer", meta=(CallInEditor="true"))
+    UFUNCTION(BlueprintCallable, Category = "BlueprintAnalyzer", meta=(CallInEditor="true"))
     static FString ExportToLLMText(const FBlueprintAnalysisResult& AnalysisResult);
 
-    UFUNCTION(BlueprintCallable, Category = "Blueprint Analyzer", meta=(CallInEditor="true"))
+    UFUNCTION(BlueprintCallable, Category = "BlueprintAnalyzer", meta=(CallInEditor="true"))
     static bool SaveAnalysisToFile(const FBlueprintAnalysisResult& AnalysisResult, const FString& FilePath, const FString& Format = TEXT("JSON"));
 
     // New Widget Blueprint Analysis Functions
-    UFUNCTION(BlueprintCallable, Category = "Widget Analyzer", meta=(CallInEditor="true"))
+    UFUNCTION(BlueprintCallable, Category = "WidgetAnalyzer", meta=(CallInEditor="true"))
     static FWidgetOptimizationReport AnalyzeWidgetBlueprint(UBlueprint* WidgetBlueprint);
 
-    UFUNCTION(BlueprintCallable, Category = "Widget Analyzer", meta=(CallInEditor="true"))
+    UFUNCTION(BlueprintCallable, Category = "WidgetAnalyzer", meta=(CallInEditor="true"))
     static FString ExportWidgetAnalysisToJSON(const FWidgetOptimizationReport& Report);
 
-    UFUNCTION(BlueprintCallable, Category = "Widget Analyzer", meta=(CallInEditor="true"))
+    UFUNCTION(BlueprintCallable, Category = "WidgetAnalyzer", meta=(CallInEditor="true"))
     static FString ExportWidgetAnalysisToLLMText(const FWidgetOptimizationReport& Report);
 
-    UFUNCTION(BlueprintCallable, Category = "Widget Analyzer", meta=(CallInEditor="true"))
+    UFUNCTION(BlueprintCallable, Category = "WidgetAnalyzer", meta=(CallInEditor="true"))
     static bool SaveWidgetAnalysisToFile(const FWidgetOptimizationReport& Report, const FString& FilePath, const FString& Format = TEXT("JSON"));
 
-    UFUNCTION(BlueprintCallable, Category = "Widget Analyzer", meta=(CallInEditor="true"))
+    UFUNCTION(BlueprintCallable, Category = "WidgetAnalyzer", meta=(CallInEditor="true"))
     static FString GenerateOptimizedWidgetCode(const FWidgetOptimizationReport& Report);
 
 private:
