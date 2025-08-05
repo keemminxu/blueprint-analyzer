@@ -237,9 +237,9 @@ For detailed scoring documentation, see [UMG_OPTIMIZATION_SCORING.md](UMG_OPTIMI
 
 ## ⚙️ System Requirements
 
-- **Unreal Engine**: 5.0 or later
-- **Platform**: Windows, Mac, Linux
-- **Build Tools**: Visual Studio 2022 or Xcode
+- **Unreal Engine**: 5.5 or later
+- **Platform**: Windows
+- **Build Tools**: Visual Studio 2022
 - **Editor Only**: This plugin only works in the Unreal Editor
 
 ## 🤝 Contributing

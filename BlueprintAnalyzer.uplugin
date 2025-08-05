@@ -7,9 +7,10 @@
 	"Category": "Developer Tools",
 	"CreatedBy": "keemminxu",
 	"CreatedByURL": "https://github.com/keemminxu",
-	"DocsURL": "",
+	"DocsURL": "https://github.com/keemminxu/blueprint-analyzer",
 	"MarketplaceURL": "",
-	"SupportURL": "",
+	"SupportURL": "https://github.com/keemminxu/blueprint-analyzer/issues",
+	"EngineVersion": "5.5.0",
 	"CanContainContent": false,
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,
@@ -18,10 +19,10 @@
 		{
 			"Name": "BlueprintAnalyzer",
 			"Type": "Editor",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64"
+			]
 		}
-	],
-	"TargetAllowList": [
-		"Editor"
 	]
 }
