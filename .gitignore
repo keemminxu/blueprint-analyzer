@@ -1,0 +1,16 @@
+# Claude Code / AI assistant artifacts
+.claude/
+
+# Visual Studio local state
+.vs/
+
+# Build artifacts
+Binaries/
+Intermediate/
+Build/
+Saved/
+DerivedDataCache/
+
+# OS junk
+Thumbs.db
+.DS_Store
