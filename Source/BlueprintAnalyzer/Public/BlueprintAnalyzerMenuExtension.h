@@ -24,6 +24,17 @@ private:
     static void ExecuteExportWidgetToJSON();
     static void ExecuteExportWidgetToLLMText();
     //static void ExecuteGenerateOptimizedCode();
+
+    // Phase 3: Blueprint Performance Analysis
+    static void ExecuteAnalyzeBlueprintPerformance();
+    static void ExecuteExportPerformanceToJSON();
+    static void ExecuteExportPerformanceToLLMText();
+
+    // Phase 4: Project Folder Analysis
+    static void ExecuteAnalyzeFolder();
+    static void ExecuteExportProjectToJSON();
+    static void ExecuteExportProjectToLLMText();
+    static FString GetSelectedFolderPath();
     
     static class UBlueprint* GetSelectedBlueprint();
     static bool IsWidgetBlueprint(UBlueprint* Blueprint);

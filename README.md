@@ -2,243 +2,238 @@
 
 # Blueprint Analyzer Plugin
 
-A comprehensive Unreal Engine 5 editor plugin that converts .uasset Blueprint files to LLM-friendly formats and provides advanced UMG Widget optimization analysis. Perfect for AI-assisted development, code review, and performance optimization.
+A comprehensive Unreal Engine 5 editor plugin that performs deep structural analysis of Blueprint assets and converts them into LLM-friendly formats. Goes far beyond simple node/connection extraction — delivers full metadata, execution flow traces, performance anti-pattern diagnostics, project-wide dependency graphs, and UMG optimization scoring. Purpose-built for AI-assisted development, code review, and performance optimization.
 
 ## ✨ Key Features
 
-### Blueprint to LLM Conversion
-- **🔄 .uasset to Text Conversion**: Convert binary Blueprint files to readable text format
-- **🔍 Complete Structure Analysis**: Extract all node and connection information from Blueprint graphs
-- **📊 Multiple Export Formats**: JSON for programmatic use, Human-readable text for LLM analysis  
-- **⚡ Massive Data Reduction**: 80-90% smaller output by removing visual layout information
-- **🎯 AI-Optimized Output**: Specifically formatted for ChatGPT, Claude, and other AI assistants
-- **🌐 Universal Blueprint Support**: Works with all Blueprint types (Actor, Component, Interface, etc.)
+### 🧠 Complete Blueprint Analysis
+- **Full Metadata Extraction**: Parent class, implemented interfaces, variables (type · default value · Editable/Replicated/ExposeOnSpawn flags · category · tooltip), custom function signatures (parameters, return type, Pure/Const/Static, access specifier), components (full SCS hierarchy for Actor BPs), event dispatchers, macros, timelines
+- **Execution Flow Tracing**: DFS from every Event/CustomEvent/FunctionEntry with Branch/Sequence labeling, latent node detection, cycle guards, and tree-indented output LLMs can read at a glance
+- **Full Graph Coverage**: Event graphs, function graphs, macro graphs, delegate signature graphs — no hidden logic
+- **Literal Value Extraction**: Hardcoded constants on unconnected input pins (e.g. `Print String("Hello")`) surfaced directly
+- **Comment Group Detection**: Nodes wrapped by Comment boxes are grouped under their comment title for semantic context
 
-### Widget Blueprint Optimization
-- **🎨 UMG Performance Analysis**: Comprehensive Widget Blueprint optimization scoring (0-100 points)
-- **📏 Hierarchy Analysis**: Detect deep nesting issues (>5 levels) and layout complexity
-- **🎯 Smart Optimization Detection**: Identify missing Invalidation Box and Retainer Box usage
-- **⚙️ Widget Combination Analysis**: Detect problematic ScaleBox + SizeBox combinations
-- **📈 Performance Recommendations**: Get specific, actionable optimization suggestions
+### 🔄 Blueprint → LLM Conversion
+- **🔄 .uasset to Text**: Binary Blueprint files converted to readable text
+- **📊 Multiple Export Formats**: JSON for programmatic use, human-readable text for LLM analysis
+- **⚡ Massive Data Reduction**: 80-90% smaller than raw uasset — visual layout stripped, logic preserved
+- **🎯 AI-Optimized Output**: Specifically formatted for ChatGPT, Claude, and other LLMs
+- **🪙 Token Estimation**: Predict token consumption before pasting into an LLM
+- **🌐 Universal Blueprint Support**: Actor, Component, Widget, Animation, Interface, Level, Function Library, Macro Library
 
-### Universal Support
-- **🔧 Editor Integration**: Right-click context menu integration in Content Browser
-- **🌐 Universal Blueprint Support**: Works with regular Blueprints, Widget Blueprints, Animation Blueprints, etc.
+### ⚡ Blueprint Performance Diagnostics
+- **Performance Score (0-100)**: Blueprint-level grading mirroring the UMG system
+- **Anti-Pattern Detection**:
+  - Expensive calls in Tick (`GetAllActorsOfClass`, `LineTrace`, `GetAllActorsWithInterface`, etc.)
+  - Cast in Tick (should be cached once)
+  - Bloated BeginPlay initialization (>100 downstream nodes)
+  - Heavy Tick graph (>50 downstream nodes)
+  - Excessive Cast usage (>20 total)
+- **Prioritized Recommendations**: Each issue includes rationale, point deduction, and specific fix suggestion
+
+### 🎨 Widget Blueprint Optimization
+- **UMG Performance Scoring (0-100)**: Comprehensive optimization grade with justification
+- **Hierarchy Analysis**: Detect deep nesting (>5 levels) and layout complexity
+- **Smart Optimization Detection**: Identify missing Invalidation Box and Retainer Box
+- **Widget Combination Analysis**: Flag problematic ScaleBox + SizeBox combinations
+- **Real Binding Detection**: Reads actual `UWidgetBlueprint::Bindings` — no heuristic guessing
+- **Actionable Recommendations**: Specific fix suggestions tied to each detected issue
+
+### 📁 Project-Level Batch Analysis
+- **Folder Analysis**: Right-click any Content Browser folder → analyze every Blueprint inside
+- **Aggregate Report**: Total nodes, average performance score, top 10 worst offenders sorted by score
+- **Dependency Graph**: Extract Spawn / Cast / Call / HardRef references between Blueprints
+- **Circular Dependency Detection**: Automated cycle discovery across the project
+- **Bulk Token Estimation**: Per-Blueprint LLM token budget upfront
+
+### 🔧 Editor Integration
+- **Right-click on any Blueprint**: full per-asset analysis menus
+- **Right-click on any Content Browser folder**: batch project analysis
+- **Non-destructive**: never modifies your Blueprints
+- **Editor-only**: no runtime dependencies, no packaged-game overhead
 
 ## 🚀 Installation
 
 1. Copy the `BlueprintAnalyzer` folder to your project's `Plugins` directory
-2. Regenerate project files
+2. Regenerate project files (right-click `.uproject` → Generate Visual Studio project files)
 3. Build your project
 4. Enable the plugin in Editor → Plugins → Developer Tools → Blueprint Analyzer
 
 ## 📋 Usage
 
-### Blueprint to LLM Conversion
+### Single Blueprint Analysis
 
-#### Quick Blueprint Analysis
+#### Quick Analysis
 1. Select any Blueprint (.uasset) in the Content Browser
-2. Right-click to open context menu
-3. Choose **Blueprint Analyzer** → **Analyze Blueprint**
-4. View node count and connection summary in popup
+2. Right-click → **Blueprint Analyzer** → **Analyze Blueprint**
+3. View complete metadata summary (type, parent, variables, functions, components, execution paths, etc.)
 
-#### Convert Blueprint to JSON
-1. Select a Blueprint in the Content Browser
-2. Right-click → **Blueprint Analyzer** → **Export to JSON**
-3. Choose save location for the .json file
-4. Use the structured data for:
-   - Programmatic analysis
-   - Integration with other tools
-   - Automated Blueprint processing
+#### Export for AI / Programmatic Use
+1. Select a Blueprint → Right-click → **Blueprint Analyzer**
+2. Choose **Export to JSON** (programmatic) or **Export to LLM Text** (AI-friendly)
+3. Paste result into ChatGPT / Claude for code review, C++ migration, documentation, bug hunting
 
-#### Convert Blueprint for AI Analysis
-1. Select a Blueprint in the Content Browser
-2. Right-click → **Blueprint Analyzer** → **Export to LLM Text**
-3. Choose save location for the .txt file
-4. Copy the content and paste into:
-   - ChatGPT for code review and suggestions
-   - Claude for Blueprint analysis and C++ conversion
-   - Any LLM for documentation generation
+### Blueprint Performance Audit
+1. Right-click any Blueprint → **Performance Analysis** → **Analyze Blueprint Performance**
+2. Review the 0-100 score and prioritized anti-pattern issues
+3. Export detailed JSON / LLM Text reports for team review
 
 ### Widget Blueprint Optimization
+1. Right-click a Widget Blueprint → **Widget Optimization** → **Analyze Widget Blueprint**
+2. See optimization score, issues, memory estimate, and recommendations
+3. Export detailed JSON / LLM Text reports
 
-#### Quick Optimization Analysis
-1. Select a Widget Blueprint in the Content Browser
-2. Right-click to open context menu
-3. Choose **Blueprint Analyzer** → **Analyze Widget Blueprint**
-4. View optimization score and recommendations in popup dialog
-
-#### Detailed Optimization Report
-1. Select a Widget Blueprint → Right-click → **Blueprint Analyzer**
-2. Choose **Export Widget Analysis to JSON** or **Export Widget Analysis to LLM Text**
-3. Get detailed analysis including:
-   - Widget hierarchy breakdown
-   - Specific optimization issues
-   - Performance recommendations
-   - Memory usage estimates
+### Project-Wide Batch Analysis
+1. Right-click any **folder** in the Content Browser → **Blueprint Analyzer**
+2. Choose **Analyze Folder** for an aggregate summary popup
+3. Export JSON or LLM Text for the full dependency graph, top offenders list, and circular-dependency chains
 
 ## 📄 Output Examples
 
-### Blueprint Analysis JSON Format
-```json
-{
-  "BlueprintName": "BP_PlayerCharacter",
-  "AnalysisTimestamp": "2024-01-15 14:30:22",
-  "Nodes": [
-    {
-      "NodeType": "Event",
-      "NodeName": "BeginPlay",
-      "FunctionName": "",
-      "InputPins": [],
-      "OutputPins": ["exec:exec"]
-    }
-  ],
-  "Connections": [
-    {
-      "FromNodeGuid": "ABC123",
-      "FromPinName": "exec",
-      "ToNodeGuid": "DEF456",
-      "ToPinName": "exec"
-    }
-  ]
-}
-```
-
-### LLM-Friendly Text Format
+### Blueprint Analysis — LLM Text Format
 ```
 Blueprint Analysis: BP_PlayerCharacter
-Analyzed at: 2024-01-15 14:30:22
+Analyzed at: 2026-04-20 14:30:22
+
+=== METADATA ===
+BlueprintType: ActorBlueprint
+ParentClass: Character
+Interfaces: IInteractable, ISaveable
+
+--- Components ---
+- Mesh (SkeletalMeshComponent)
+- CameraBoom (SpringArmComponent) attached to Mesh
+- FollowCamera (CameraComponent) attached to CameraBoom
+
+--- Variables ---
+- Health : float = 100.0 [ Editable Replicated ] (Category: Stats)
+- Inventory : Array<Object<Item>> [ Editable ]
+
+--- Custom Functions ---
+- void TakeDamage(float DamageAmount, Object<AActor> Causer)
+- bool HasItem(Class<UItem> ItemClass) [Pure] [Const]
+
+--- Event Dispatchers ---
+- OnHealthChanged(float NewHealth)
 
 === NODES ===
-- Event [ABC123]: BeginPlay
+- Event [ABC123]: BeginPlay (in graph: EventGraph)
   Outputs: exec:exec
 
-- FunctionCall [DEF456]: Set Actor Location
-  Function: SetActorLocation
-  Inputs: exec:exec, NewLocation:vector
-  Outputs: exec:exec
+=== EXECUTION FLOW ===
 
-=== CONNECTIONS ===
-ABC123.exec -> DEF456.exec
+[BeginPlay] in EventGraph
+- Event (BeginPlay)
+  - Cast<Character>
+    [True] - Set Variable: MainCharacter
+  - Print String("Player Ready")
 ```
 
 ### Widget Blueprint Optimization Report
 ```
 Widget Blueprint Optimization Report: WBP_MainMenu
-Analyzed at: 2024-01-15 14:30:22
-
-=== SUMMARY ===
-Total Widgets: 15
-Maximum Depth: 6
-Total Bindings: 4
-Estimated Memory Usage: 23.50 KB
 Optimization Score: 70/100
 
 === OPTIMIZATION ISSUES ===
-[WARNING] Deep Nesting Beyond 5 Levels: Widget 'Button_Submit' is nested 6 levels deep (max recommended: 5)
-  Widget: Button_Submit
-  Recommendation: Flatten widget hierarchy to improve layout calculation performance (-10 points)
-
 [CRITICAL] Missing Invalidation Box: Dynamic widgets (TextBlock) found but no Invalidation Box is used
-  Widget: Root
-  Recommendation: Wrap frequently updating widgets with Invalidation Box for better rendering performance (-20 points)
+  Recommendation: Wrap frequently updating widgets with Invalidation Box (-20 points)
+
+[WARNING] Deep Nesting Beyond 5 Levels: Widget 'Button_Submit' is nested 6 levels deep
+  Recommendation: Flatten widget hierarchy (-10 points)
+```
+
+### Blueprint Performance Report
+```
+Blueprint Performance Report: BP_EnemyAI
+Performance Score: 55/100
+
+=== ISSUES ===
+[CRITICAL] Expensive Call in Tick: 'GetAllActorsOfClass' is called every frame inside Tick
+  Recommendation: Cache the result in BeginPlay, use a timer, or event-driven alternative (-25 points)
+
+[WARNING] Cast in Tick: Cast is performed every frame
+  Recommendation: Cache the cast result in BeginPlay and reuse the pointer (-10 points)
+```
+
+### Project-Level Analysis
+```
+Project Analysis: /Game/Characters
+Blueprints analyzed: 12
+Total nodes: 1,847
+Average performance score: 78.3/100
+
+=== TOP OFFENDERS (worst performance first) ===
+1. BP_EnemyAI (ActorBlueprint) - score 45/100, 3 critical, 287 nodes, ~2841 tokens
+2. BP_BossController (ActorBlueprint) - score 60/100, 1 critical, 412 nodes, ~4120 tokens
+...
+
+=== CIRCULAR DEPENDENCIES ===
+- BP_Player -> BP_Inventory -> BP_Player
+
+=== DEPENDENCIES (47 total) ===
+- BP_Player --(Spawn)--> BP_Bullet  [graph: EventGraph]
+- BP_Player --(Cast)--> BP_Weapon  [graph: Shoot]
 ```
 
 ## 🎯 Use Cases
 
-### AI-Assisted Development (.uasset → LLM)
-- **Blueprint to Text Conversion**: Transform binary .uasset files into LLM-readable format
-- **Code Review with AI**: Share blueprint logic with ChatGPT/Claude for analysis and suggestions
-- **Blueprint to C++ Migration**: Get AI assistance to convert Blueprint logic to optimized C++ code
-- **Auto Documentation**: Generate comprehensive documentation for complex Blueprint systems
-- **Logic Debugging**: Use AI to identify potential issues, infinite loops, or logic flaws
-- **Architecture Analysis**: Get AI feedback on Blueprint architecture and design patterns
+### AI-Assisted Development
+- **Full-context code review**: metadata + execution flow gives AI enough context to suggest non-trivial fixes
+- **Blueprint → C++ migration**: convert logic to optimized C++ with parameter types, signatures, and flow preserved
+- **Auto documentation**: generate comprehensive docs for complex Blueprint systems
+- **Logic debugging**: identify infinite loops, dead branches, unused variables
+- **Architecture analysis**: feed project dependency graph into AI for refactoring suggestions
 
-### UMG Performance Optimization
-- **Performance Audits**: Quickly identify performance bottlenecks in Widget Blueprints
-- **Best Practice Enforcement**: Ensure teams follow UMG optimization guidelines
-- **Memory Optimization**: Get estimates and recommendations for memory usage reduction
-- **CI/CD Integration**: Automate widget performance checks in your build pipeline
+### Performance Optimization
+- **Tick-heavy Blueprint discovery**: find the actual culprits in seconds, not hours of profiling
+- **UMG audits**: prevent layout-thrash issues before they ship
+- **Team-wide quality gates**: enforce optimization baselines with scoring
+- **Memory budget planning**: per-widget estimates
 
 ### Team Collaboration & Workflow
-- **Version Control Friendly**: Track Blueprint changes in readable text format instead of binary diffs
-- **Remote Code Reviews**: Review Blueprint logic without needing Unreal Editor access
-- **Cross-Team Communication**: Share Blueprint functionality with non-technical team members (designers, QA)
-- **Legacy System Analysis**: Convert old Blueprints to text for easier migration planning
-- **Performance Standards**: Establish and maintain UI performance standards across projects
-- **External Tool Integration**: Feed Blueprint data into custom analysis tools and pipelines
+- **Readable diffs**: text-based Blueprint representation for meaningful version-control diffs
+- **Remote code reviews**: share Blueprint logic without requiring editor access
+- **Cross-team communication**: share behavior summaries with designers / QA
+- **Legacy system audits**: convert old Blueprints into text for migration planning
+- **CI/CD integration**: automated performance/quality checks in build pipelines
 
 ## 🔧 Technical Details
 
-### Supported Node Types
-- Events (BeginPlay, Tick, Input Events, etc.)
-- Function Calls
-- Variable Get/Set operations
-- Control Flow (Branch, Loop, etc.)
-- Mathematical Operations
-- Custom Events
-- And many more...
-
-### Blueprint Types Supported
-- Regular Blueprints
+### Supported Blueprint Types
+- Regular Blueprints (Actor, Component, Object)
 - Widget Blueprints
-- Animation Blueprints  
-- Actor Blueprints
-- Component Blueprints
+- Animation Blueprints
 - Interface Blueprints
+- Function Libraries
+- Macro Libraries
+- Level Blueprints
 
-### Blueprint Data Extraction & Reduction
-The plugin intelligently converts binary .uasset files to text while preserving essential logic:
+### What's Extracted
+- ✅ Complete node types, names, GUIDs, and graph attribution
+- ✅ Function calls with all parameter types
+- ✅ Variable get/set operations and definitions
+- ✅ Event handling and execution flow
+- ✅ Pin types including `PinSubCategoryObject` (Object/Struct resolution)
+- ✅ Control flow (branches, loops, sequences, latent nodes)
+- ✅ Blueprint inheritance, interfaces, and components
+- ✅ Custom events, delegates, and event dispatchers
+- ✅ Literal/hardcoded values on input pins
+- ✅ Comment-box groupings
 
-#### What's Removed (Visual/Editor-Only Data)
+### What's Stripped (visual/editor-only)
 - ❌ Node positions (X, Y coordinates)
 - ❌ Visual styling and colors
-- ❌ Comment box positions and formatting
-- ❌ Complex GUID details (simplified for readability)
 - ❌ Editor-specific metadata
 - ❌ Thumbnail and preview data
 
-#### What's Preserved (Logic & Structure)
-- ✅ Complete node types and names
-- ✅ Function calls with all parameters
-- ✅ Variable get/set operations
-- ✅ Event handling and execution flow
-- ✅ Pin types and data connections
-- ✅ Control flow (branches, loops, gates)
-- ✅ Blueprint inheritance and interfaces
-- ✅ Custom events and delegates
-
-#### Result: 80-90% Size Reduction
-- **Before**: 500KB+ binary .uasset file
-- **After**: 50-100KB readable text file
-- **Benefit**: Perfect for LLM context windows and version control
-
-### Widget Blueprint Optimization Scoring
-
-The plugin uses a comprehensive 100-point scoring system for Widget Blueprint optimization:
-
-#### Deduction Criteria
-- **Deep Nesting (-10 points)**: Widget hierarchy exceeds 5 levels
-- **Scale Box + Size Box Combination (-5 points)**: These widgets used together in parent-child relationship
-- **Missing Invalidation Box (-20 points)**: Dynamic widgets without proper invalidation caching
-- **Missing Retainer Box (-10 points)**: Complex static widgets without render caching
-
-#### Bonus Points
-- **Optimization Box Active Usage (+20 points)**: Proper use of both Invalidation and Retainer boxes
-
-#### Score Grades
-- **90-100**: Excellent! - Very Well Optimized
-- **70-89**: Good - Well Optimized  
-- **50-69**: Average - Some Improvements Needed
-- **30-49**: Poor - Significant Optimization Required
-- **0-29**: Critical - Complete Redesign Required
-
-For detailed scoring documentation, see [UMG_OPTIMIZATION_SCORING.md](UMG_OPTIMIZATION_SCORING.md).
+### Scoring Reference
+- **UMG optimization scoring details**: see [UMG_OPTIMIZATION_SCORING.md](UMG_OPTIMIZATION_SCORING.md)
+- **Blueprint performance scoring**: Tick-heavy calls (-25), Cast in Tick (-10 each), Heavy Tick graph (-15), Bloated BeginPlay (-10), Excessive Casts (-5)
 
 ## ⚙️ System Requirements
 
-- **Unreal Engine**: 5.5 or later
-- **Platform**: Windows
+- **Unreal Engine**: 5.6 or later
+- **Platform**: Windows (Win64)
 - **Build Tools**: Visual Studio 2022
 - **Editor Only**: This plugin only works in the Unreal Editor
 
@@ -251,8 +246,11 @@ We welcome contributions! Please:
 4. Add tests if applicable
 5. Submit a pull request
 
-## 📞 Support
+## 📞 Contact & Support
 
+- **Author**: keemminxu
+- **Blog**: [keemminxu.com](https://keemminxu.com)
+- **GitHub**: [github.com/keemminxu](https://github.com/keemminxu)
 - **Issues**: [GitHub Issues](https://github.com/keemminxu/blueprint-analyzer/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/keemminxu/blueprint-analyzer/discussions)
 
@@ -268,4 +266,4 @@ This project is provided free of charge for use in Unreal Engine projects - see 
 
 ---
 
-**Made with ❤️ by keemminxu**
+**Made with care by [keemminxu](https://keemminxu.com)**
