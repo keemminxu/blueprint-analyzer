@@ -1,4 +1,4 @@
-![img](https://github.com/keemminxu/blueprint-analyzer/blob/0dc6b752c9fe89d79d98671b0b795c858facea01/Thumbnail/BlueprintAnalyzer_0.png)
+![Blueprint Analyzer](Thumbnail/BlueprintAnalyzer_0.png)
 
 # Blueprint Analyzer Plugin
 
