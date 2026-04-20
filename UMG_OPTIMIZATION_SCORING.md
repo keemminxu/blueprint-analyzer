@@ -60,7 +60,8 @@ This scoring system evaluates UMG Widget Blueprint optimization on a scale of 0-
 
 ### Total Bindings
 - **Definition**: Count of bound properties across all widgets
-- **Purpose**: Understanding binding complexity (currently heuristic-based)
+- **Source**: Reads the actual `UWidgetBlueprint::Bindings` array, not heuristics
+- **Purpose**: Understanding binding complexity for performance impact assessment
 
 ### Optimization Issues
 - **Definition**: Number of detected optimization problems
@@ -75,7 +76,7 @@ This scoring system evaluates UMG Widget Blueprint optimization on a scale of 0-
 ### Widget Detection
 - Uses widget type name matching (e.g., "InvalidationBox", "RetainerBox")
 - Hierarchy traversal to detect parent-child relationships
-- Heuristic-based binding detection for common properties
+- Binding detection via `UWidgetBlueprint::Bindings` — the same source the editor uses
 
 ### Scoring Algorithm
 1. Start with 100 points
@@ -97,10 +98,24 @@ The analyzer is accessible through the Content Browser context menu:
 3. View results in popup dialog
 4. Export detailed reports via JSON or LLM-friendly text formats
 
+## Related: Blueprint Performance Scoring
+
+In addition to this UMG-specific scoring system, the plugin ships a parallel **Blueprint Performance Scoring** system for regular (non-Widget) Blueprints. It applies the same 0-100 grading philosophy to classic performance anti-patterns:
+
+| Issue | Deduction |
+|-------|-----------|
+| Expensive call in Tick (`GetAllActorsOfClass`, `LineTrace`, etc.) | -25 (up to 3 occurrences) |
+| Cast in Tick | -10 (up to 3 occurrences) |
+| Heavy Tick graph (>50 downstream nodes) | -15 |
+| Bloated BeginPlay (>100 downstream nodes) | -10 |
+| Excessive Cast usage (>20 total) | -5 |
+
+Access via Content Browser right-click on any Blueprint → **Performance Analysis** → **Analyze Blueprint Performance**. Also available in batch mode through **Analyze Folder** for project-wide audits.
+
 ## Future Improvements
 
-- Real binding detection instead of heuristic approach
-- More sophisticated parent-child relationship tracking
-- Performance impact estimation
-- Integration with UE5 profiling tools
-- Custom optimization rule definitions
+- More sophisticated parent-child relationship tracking (currently depth-based approximation for ScaleBox/SizeBox detection)
+- Precise per-widget memory measurement (currently heuristic-based estimation)
+- Integration with UE5 Slate Insights / profiling tools
+- Custom optimization rule definitions via project settings
+- Animation-aware optimization rules (UMG Animation cost detection)
