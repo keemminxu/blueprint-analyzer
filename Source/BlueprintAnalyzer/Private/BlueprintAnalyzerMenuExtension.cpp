@@ -7,6 +7,8 @@
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "ContentBrowserModule.h"
 #include "IContentBrowserSingleton.h"
+#include "IContentBrowserDataModule.h"
+#include "ContentBrowserDataSubsystem.h"
 #include "Framework/MultiBox/MultiBoxBuilder.h"
 #include "ToolMenus.h"
 #include "Misc/MessageDialog.h"
@@ -494,23 +496,50 @@ void FBlueprintAnalyzerMenuExtension::ExecuteExportPerformanceToLLMText()
 FString FBlueprintAnalyzerMenuExtension::GetSelectedFolderPath()
 {
     FContentBrowserModule& ContentBrowserModule = FModuleManager::LoadModuleChecked<FContentBrowserModule>("ContentBrowser");
-    TArray<FString> SelectedPaths;
-    ContentBrowserModule.Get().GetSelectedPathViewFolders(SelectedPaths);
+    IContentBrowserSingleton& ContentBrowser = ContentBrowserModule.Get();
 
+    FString RawPath;
+
+    TArray<FString> SelectedPaths;
+    ContentBrowser.GetSelectedPathViewFolders(SelectedPaths);
     if (SelectedPaths.Num() > 0)
     {
-        return SelectedPaths[0];
+        RawPath = SelectedPaths[0];
     }
 
-    // Fallback: try GetSelectedFolders
-    TArray<FString> SelectedFolders;
-    ContentBrowserModule.Get().GetSelectedFolders(SelectedFolders);
-    if (SelectedFolders.Num() > 0)
+    if (RawPath.IsEmpty())
     {
-        return SelectedFolders[0];
+        TArray<FString> SelectedFolders;
+        ContentBrowser.GetSelectedFolders(SelectedFolders);
+        if (SelectedFolders.Num() > 0)
+        {
+            RawPath = SelectedFolders[0];
+        }
     }
 
-    return FString();
+    if (RawPath.IsEmpty())
+    {
+        return FString();
+    }
+
+    // UE 5.1+: ContentBrowser returns virtual paths like "/All/Game/MyFolder".
+    // AssetRegistry expects internal paths like "/Game/MyFolder".
+    if (UContentBrowserDataSubsystem* DataSubsystem = IContentBrowserDataModule::Get().GetSubsystem())
+    {
+        FString InternalPath;
+        if (DataSubsystem->TryConvertVirtualPath(RawPath, InternalPath) == EContentBrowserPathType::Internal)
+        {
+            return InternalPath;
+        }
+    }
+
+    // Fallback: strip "/All" virtual root if conversion is unavailable.
+    if (RawPath.StartsWith(TEXT("/All/")))
+    {
+        return RawPath.RightChop(4);
+    }
+
+    return RawPath;
 }
 
 void FBlueprintAnalyzerMenuExtension::ExecuteAnalyzeFolder()
