@@ -48,6 +48,7 @@ public class BlueprintAnalyzer : ModuleRules
 				"EditorSubsystem",
 				"AssetTools",
 				"ContentBrowser",
+				"ContentBrowserData",
 				"GraphEditor",
 				"DesktopPlatform"
 			}
