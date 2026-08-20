@@ -232,7 +232,7 @@ Average performance score: 78.3/100
 
 ## ⚙️ System Requirements
 
-- **Unreal Engine**: 5.6 or later
+- **Unreal Engine**: 5.6
 - **Platform**: Windows (Win64)
 - **Build Tools**: Visual Studio 2022
 - **Editor Only**: This plugin only works in the Unreal Editor
